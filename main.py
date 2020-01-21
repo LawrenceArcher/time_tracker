@@ -8,7 +8,9 @@ project_data = json.loads(data)
 def start_tracker():
     name = input("What project are you working on?\n")
     start=time.time()
+    print(datetime.datetime.now())
     timer_active = True
+    print(start)
 
     user_input = ""
     while user_input != "stop":
@@ -26,5 +28,16 @@ def start_tracker():
     with open('project_data.json', 'w') as data_to_write:
         json.dump(project_data, data_to_write)
 
+task = input("d for delete, s for start timer")
+if task == "s":
+    start_tracker()
+elif task == "d":
+    print(project_data)
+    project_to_delete = input("which project do you want to delete?")
+    if project_to_delete in project_data:
+        project_data.pop(project_to_delete, None)
+        with open('project_data.json', 'w') as data_to_write:
+            json.dump(project_data, data_to_write)
+    else:
+        print("That doesn't exist")
 
-start_tracker()
